@@ -7,7 +7,7 @@
   <title>Brick Breaker</title>
   <style>
     body {
-      background: #faf8ef;
+      background:linear-gradient(180deg,rgb(148, 148, 148),rgb(184, 184, 184));
       margin: 0;
       padding: 0;
  
@@ -21,17 +21,21 @@
     }
 
     button {
-      border-radius: 5px;
+      border-radius: 50%;
       font-size: 1.5em;
       display: block;
-      margin: 10 auto;
+      margin: 0 auto;
+      text-align: center;
+      width: 200px;
+      height: 200px;
+      background-color: aliceblue;
     }
   </style>
 </head>
 
 <body>
   <canvas id="canvas" width="100%" height="100%"></canvas>
-  <button onclick="gameManager.downBalls()">공 내리기</button>
+  <button onclick="gameManager.downBalls()">SPEED</button>
 
   <script>
     function randomInt(...args) {
@@ -151,7 +155,7 @@
     const ctx = canvas.getContext("2d");
 
     const width = 710;
-    const height = 880;
+    const height = 920;
     const uiOffsetY = 80;
 
     canvas.width = width;
@@ -232,7 +236,7 @@
             state.ballPos.x,
             state.ballPos.y,
             Mouse.position.x,
-            Math.min(Mouse.position.y, 720)
+            Math.min(Mouse.position.y, 770)
           );
         }
       }
@@ -589,10 +593,10 @@
       }
 
       showScore(state) {
-        ctx.fillText(`현재 점수: ${state.level}`, 30, uiOffsetY / 2 + 7);
+        ctx.fillText(`current score: ${state.level}`, 30, uiOffsetY / 2 + 7);
         ctx.fillText(
-          `최고 점수: ${state.bestLevel}`,
-          width - 150,
+          `highest score: ${state.bestLevel}`,
+          width - 200,
           uiOffsetY / 2 + 7
         );
       }
@@ -608,9 +612,9 @@
 
       gameOver() {
         fillRect(0, height / 2 - 100, width, 200, "rgba(0, 0, 0, 0.3)");
-        ctx.font = "40px Arial";
-        ctx.fillText("패배!", width / 2 - 40, height / 2 + 12);
-        ctx.font = "20px Arial";
+        ctx.font = "40px ";
+        ctx.fillText("Defeat!", width / 2 - 40, height / 2 + 12);
+        ctx.font = "20px ";
       }
     }
 
@@ -881,8 +885,10 @@
       }
 
       downBalls() {
-        this.state.ballDowning = true;
-        this.balls.down();
+
+        this.balls.balls.forEach((ball) => {
+      ball.velocity.mult(2);
+    });
       }
     }
 
